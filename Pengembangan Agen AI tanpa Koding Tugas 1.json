@@ -1,0 +1,114 @@
+{
+  "name": "Pengembangan Agen AI tanpa Koding Tugas 1",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "7bef0642-47fb-482e-a620-5dfb385a472f",
+      "name": "When chat message received",
+      "webhookId": "a261dbba-1728-4351-a037-e07cec50748f"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "Kamu adalah asisten digital spesialis digital marketing.\nJawab hanya pertanyaan terkait SEO dan Email Marketing.\nJika pertanyaan tidak relevan, tolak dengan sopan.\nBerikan jawaban yang jelas, singkat, dan profesional."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        240,
+        0
+      ],
+      "id": "e3d10bb9-bde5-47a7-a0a0-1130904647f9",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        176,
+        208
+      ],
+      "id": "1d8e0385-cf4b-46b1-8be4-17094b5976f9",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "McCnGgzm5ELRUd8d",
+          "name": "Google Gemini(PaLM) Api account 2"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        336,
+        208
+      ],
+      "id": "8a0d3ff5-67ff-4aeb-9ad0-a98d47492a69",
+      "name": "Simple Memory"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "bcfdb9c3-21be-46d0-9a79-505f71dc43e0",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "026c24afa9de1863e954dd17512ad480d9a86f37af8de108f77c4f7cc1589ae2"
+  },
+  "id": "LcOY8LBClnGOzVVw",
+  "tags": []
+}
